@@ -59,14 +59,14 @@ class _LoginFormState extends State<LoginForm> {
 
     try {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      await authProvider.login(
+      final success = await authProvider.login(
         _telephoneController.text.trim(),
         _passwordController.text,
       );
 
       if (!mounted) return;
 
-      if (authProvider.user != null) {
+      if (success) {
         Navigator.pushNamedAndRemoveUntil(
           context,
           AppRoutes.homeRoute,
@@ -74,13 +74,13 @@ class _LoginFormState extends State<LoginForm> {
         );
       } else {
         setState(() {
-          _errorMessage = 'Identifiants incorrects';
+          _errorMessage = authProvider.error ?? 'Échec de la connexion';
         });
       }
     } catch (e) {
       if (mounted) {
         setState(() {
-          _errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+          _errorMessage = 'Une erreur est survenue: ${e.toString()}';
         });
       }
     } finally {

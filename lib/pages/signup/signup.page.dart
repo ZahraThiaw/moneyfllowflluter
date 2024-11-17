@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moneyflow/core/http/http_client_interface.dart';
 import 'package:moneyflow/widgets/app_logo.dart';
 import 'package:moneyflow/providers/auth_provider.dart';
 import 'package:moneyflow/routes/routes.dart';
@@ -18,6 +19,7 @@ class SignupPage extends StatelessWidget {
       create: (_) => AuthProvider(
         authService: sl<AuthService>(),
         transactionService: sl<TransactionService>(),
+        httpClient: sl<IHttpClient>(),
       ),
       child: Scaffold(
         body: Padding(

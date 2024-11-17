@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:get_it/get_it.dart';
 import 'package:moneyflow/core/http/dio_client_impl.dart';
+import 'package:moneyflow/core/http/http_client_impl.dart';
 import 'package:moneyflow/core/http/http_client_interface.dart';
 import 'package:moneyflow/services/auth_service.dart';
 import 'package:moneyflow/services/storage_service.dart';
@@ -11,7 +14,7 @@ void setupServiceLocator() {
   sl.registerLazySingleton<StorageService>(() => StorageService());
 
   // HTTP Client
-  sl.registerLazySingleton<IHttpClient>(() => DioClientImpl());
+  sl.registerLazySingleton<IHttpClient>(() => HttpClientImpl());
 
   // Services
   sl.registerLazySingleton<AuthService>(

@@ -1,5 +1,7 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:moneyflow/core/http/http_client_interface.dart';
 import 'package:moneyflow/services/auth_service.dart';
 import 'package:moneyflow/services/storage_service.dart';
 import 'package:moneyflow/services/transaction_service.dart';
@@ -21,7 +23,11 @@ void main() async {
   final storageService = StorageService();
   await storageService.init();
 
+  final authService = sl<AuthService>();
+  await authService.restoreSession();
+
   Intl.defaultLocale = 'fr_FR';
+  await initializeDateFormatting('fr_FR', null);
 
   runApp(
     MultiProvider(
@@ -30,6 +36,7 @@ void main() async {
           create: (_) => AuthProvider(
             authService: sl<AuthService>(),
             transactionService: sl<TransactionService>(),
+            httpClient: sl<IHttpClient>(),
           ),
         ),
       ],

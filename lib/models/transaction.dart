@@ -1,81 +1,79 @@
-// lib/models/transaction.dart
-//import 'package:flutter/foundation.dart';
-
-class TransactionUser {
-  final String id;
-  final String nom;
-  final String prenom;
-  final String telephone;
-  final String? qrcode;
-  final String type;
-  final double solde;
-  final String statut;
-  final double plafonnd;
-
-  TransactionUser({
-    required this.id,
-    required this.nom,
-    required this.prenom,
-    required this.telephone,
-    required this.qrcode,
-    required this.type,
-    required this.solde,
-    required this.statut,
-    required this.plafonnd,
-  });
-
-  factory TransactionUser.fromJson(Map<String, dynamic> json) {
-    return TransactionUser(
-      id: json['_id'] ?? '',
-      nom: json['nom'] ?? '',
-      prenom: json['prenom'] ?? '',
-      telephone: json['telephone'] ?? '',
-      qrcode: json['qrcode'],
-      type: json['type'] ?? '',
-      solde: (json['solde'] ?? 0).toDouble(),
-      statut: json['statut'] ?? '',
-      plafonnd: (json['plafonnd'] ?? 0).toDouble(),
-    );
-  }
-}
-
 class Transaction {
-  final String id;
-  final String type;
+  final int id;
   final double montant;
   final double frais;
   final double montantTotal;
+  final String type;
   final DateTime date;
-  final TransactionUser expediteur;
-  final TransactionUser destinataire;
+  final UserInfo expediteur;
+  final UserInfo destinataire;
   final String status;
-  final String? description;
 
   Transaction({
     required this.id,
-    required this.type,
     required this.montant,
     required this.frais,
     required this.montantTotal,
+    required this.type,
     required this.date,
     required this.expediteur,
     required this.destinataire,
     required this.status,
-    this.description,
   });
 
   factory Transaction.fromJson(Map<String, dynamic> json) {
     return Transaction(
-      id: json['_id'] ?? '',
-      type: json['type'] ?? '',
-      montant: (json['montant'] ?? 0).toDouble(),
-      frais: (json['frais'] ?? 0).toDouble(),
-      montantTotal: (json['montantTotal'] ?? 0).toDouble(),
-      date: DateTime.parse(json['date'] ?? DateTime.now().toIso8601String()),
-      expediteur: TransactionUser.fromJson(json['expediteur'] ?? {}),
-      destinataire: TransactionUser.fromJson(json['destinataire'] ?? {}),
-      status: json['status'] ?? '',
-      description: json['description'],
+      id: json['id'] as int,
+      montant: (json['montant'] as num).toDouble(),
+      frais: (json['frais'] as num).toDouble(),
+      montantTotal: (json['montantTotal'] as num).toDouble(),
+      type: json['type'] as String,
+      date: DateTime.parse(json['date'] as String),
+      expediteur: UserInfo.fromJson(json['expediteur'] as Map<String, dynamic>),
+      destinataire: UserInfo.fromJson(json['destinataire'] as Map<String, dynamic>),
+      status: json['status'] as String,
+    );
+  }
+}
+
+// UserInfo model for transaction participants
+class UserInfo {
+  final int id;
+  final String nom;
+  final String prenom;
+  final String telephone;
+  final String email;
+  final double solde;
+  final String? role;
+  final String? type;
+  final String? statut;
+  final String? qrcode;
+
+  UserInfo({
+    required this.id,
+    required this.nom,
+    required this.prenom,
+    required this.telephone,
+    required this.email,
+    required this.solde,
+    this.role,
+    this.type,
+    this.statut,
+    this.qrcode,
+  });
+
+  factory UserInfo.fromJson(Map<String, dynamic> json) {
+    return UserInfo(
+      id: json['id'] as int,
+      nom: json['nom'] as String,
+      prenom: json['prenom'] as String,
+      telephone: json['telephone'] as String,
+      email: json['email'] as String,
+      solde: (json['solde'] as num).toDouble(),
+      role: json['role'] as String?,
+      type: json['type'] as String?,
+      statut: json['statut'] as String?,
+      qrcode: json['qrcode'] as String?,
     );
   }
 }

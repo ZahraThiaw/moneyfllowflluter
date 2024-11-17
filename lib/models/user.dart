@@ -1,7 +1,7 @@
 // lib/models/user.dart
 import 'package:hive/hive.dart';
 
-part 'user.g.dart';  // Ceci sera généré automatiquement par build_runner
+part 'user.g.dart'; // Ceci sera généré automatiquement par build_runner
 
 @HiveType(typeId: 0)
 class User extends HiveObject {
@@ -102,21 +102,20 @@ class User extends HiveObject {
   }
 
   factory User.fromProfileResponse(Map<String, dynamic> json) {
-    final userData = json;
     return User(
-      id: userData['id'] as int,
-      nom: userData['nom'] as String,
-      prenom: userData['prenom'] as String,
-      telephone: userData['telephone'] as String,
-      email: userData['email'] as String,
-      type: userData['type'] as String,
-      solde: (userData['solde'] as num).toDouble(),
-      qrcode: userData['qrcode'] as String?,
-      statut: userData['statut'] as String,
-      plafonnd: (userData['plafonnd'] as num).toDouble(),
-      enabled: userData['enabled'] as bool,
-      createdAt: userData['createdAt'] as String,
-      updatedAt: userData['updatedAt'] as String,
+      id: json['id'] as int,
+      nom: json['nom'] as String,
+      prenom: json['prenom'] as String,
+      telephone: json['telephone'] as String,
+      email: json['email'] as String,
+      type: json['type'] as String,
+      solde: (json['solde'] as num).toDouble(),
+      qrcode: json['qrcode'] as String?,
+      statut: json['statut'] as String,
+      plafonnd: (json['plafonnd'] as num).toDouble(),
+      enabled: json['enabled'] as bool,
+      createdAt: json['createdAt'] as String,
+      updatedAt: json['updatedAt'] as String,
     );
   }
 

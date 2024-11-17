@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moneyflow/core/http/http_client_interface.dart';
 import 'package:moneyflow/routes/routes.dart';
 import 'package:moneyflow/services/auth_service.dart';
 import 'package:moneyflow/services/transaction_service.dart';
@@ -18,6 +19,7 @@ class LoginPage extends StatelessWidget {
       create: (_) => AuthProvider(
         authService: sl<AuthService>(),
         transactionService: sl<TransactionService>(),
+        httpClient: sl<IHttpClient>(),
       ),
       child: Scaffold(
         backgroundColor: AppColors.primaryColor,

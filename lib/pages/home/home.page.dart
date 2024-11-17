@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const Text('Erreur: utilisateur non trouvé'),
                     ElevatedButton(
-                      onPressed: authProvider.refreshData,
+                      onPressed: authProvider.refreshUserData,
                       child: const Text('Réessayer'),
                     ),
                   ],
